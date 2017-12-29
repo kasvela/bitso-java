@@ -1,19 +1,5 @@
 package com.bitso.examples;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Observable;
-
-import javax.net.ssl.SSLException;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import com.bitso.Bitso;
 import com.bitso.BitsoOrder;
 import com.bitso.BitsoOrderBook;
@@ -22,11 +8,13 @@ import com.bitso.exceptions.BitsoAPIException;
 import com.bitso.exceptions.BitsoPayloadException;
 import com.bitso.exceptions.BitsoServerException;
 import com.bitso.helpers.Helpers;
-import com.bitso.websockets.BitsoChannels;
-import com.bitso.websockets.BitsoStreamDiffOrders;
-import com.bitso.websockets.BitsoWebSocket;
-import com.bitso.websockets.BitsoWebSocketObserver;
-import com.bitso.websockets.BitsoWebSocketPublicOrder;
+import com.bitso.websockets.*;
+import org.json.JSONObject;
+
+import javax.net.ssl.SSLException;
+import java.math.BigDecimal;
+import java.net.URISyntaxException;
+import java.util.*;
 
 public class BitsoWebSocketExample extends BitsoWebSocketObserver {
     private final String BTC_MXN_BOOK = "btc_mxn";
@@ -297,8 +285,9 @@ public class BitsoWebSocketExample extends BitsoWebSocketObserver {
         }
     }
 
-    public static void main(String args[]) throws SSLException, URISyntaxException, InterruptedException {
+    public static void main(String [] args) {
         final BitsoChannels[] bitsoChannels = { BitsoChannels.DIFF_ORDERS };
+        try {
 
         BitsoWebSocket bitsoWebSocket = new BitsoWebSocket();
         BitsoWebSocketExample bitsoWebSocketExample = new BitsoWebSocketExample();
@@ -315,6 +304,13 @@ public class BitsoWebSocketExample extends BitsoWebSocketObserver {
 
         Thread.sleep(50000);
 
-        bitsoWebSocket.closeConnection();
+            bitsoWebSocket.closeConnection();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (SSLException e) {
+            e.printStackTrace();
+        }
     }
 }

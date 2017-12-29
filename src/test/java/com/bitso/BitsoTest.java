@@ -1,29 +1,18 @@
 package com.bitso;
 
-import static org.junit.Assert.assertEquals;
+import com.bitso.BitsoBalance.Balance;
+import com.bitso.exceptions.*;
+import com.bitso.exchange.BookInfo;
+import org.json.JSONException;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-import org.json.JSONException;
-import org.junit.Test;
-
-import com.bitso.BitsoBalance.Balance;
-import com.bitso.exceptions.BitsoAPIException;
-import com.bitso.exceptions.BitsoNullException;
-import com.bitso.exceptions.BitsoPayloadException;
-import com.bitso.exceptions.BitsoServerException;
-import com.bitso.exceptions.BitsoValidationException;
-import com.bitso.exchange.BookInfo;
-import com.bitso.exchange.Ticker;
+import static org.junit.Assert.assertEquals;
 
 public abstract class BitsoTest {
     protected Bitso mBitso;
@@ -48,7 +37,7 @@ public abstract class BitsoTest {
         assertEquals(tickers != null, true);
         int totalElements = tickers.length;
         assertEquals(6, totalElements);
-        for (Ticker ticker : tickers) {
+        for (BitsoTicker ticker : tickers) {
             assertEquals(nullCheck(ticker, BitsoTicker.class), true);
         }
     }
